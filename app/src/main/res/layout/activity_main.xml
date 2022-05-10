@@ -82,4 +82,18 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="336dp" />
 
+    <EditText
+        android:id="@+id/userInput"
+        android:layout_width="226dp"
+        android:layout_height="48dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="Open Mailbox"
+        android:textColor="#3CDD1E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
