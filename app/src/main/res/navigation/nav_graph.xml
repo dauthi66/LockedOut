@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/frontYard">
+    <fragment
+        android:id="@+id/frontYard"
+        android:name="com.example.lockedout.FrontYard"
+        android:label="FrontYard" >
+        <action
+            android:id="@+id/action_frontYard_to_frontDoor"
+            app:destination="@id/frontDoor" />
+    </fragment>
+    <fragment
+        android:id="@+id/frontDoor"
+        android:name="com.example.lockedout.FrontDoor"
+        android:label="FrontDoor" >
+        <action
+            android:id="@+id/action_frontDoor_to_backYard"
+            app:destination="@id/backYard" />
+        <action
+            android:id="@+id/action_frontDoor_to_toolShed"
+            app:destination="@id/toolShed" />
+    </fragment>
+    <fragment
+        android:id="@+id/toolShed"
+        android:name="com.example.lockedout.ToolShed"
+        android:label="ToolShed" >
+        <action
+            android:id="@+id/action_toolShed_to_frontDoor"
+            app:destination="@id/frontDoor" />
+    </fragment>
+    <fragment
+        android:id="@+id/backYard"
+        android:name="com.example.lockedout.BackYard"
+        android:label="BackYard" >
+        <action
+            android:id="@+id/action_backYard_to_frontDoor"
+            app:destination="@id/frontDoor" />
+    </fragment>
+</navigation>

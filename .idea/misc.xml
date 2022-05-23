@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Kris/Documents/School/Q5/Phone Programming/LockedOut/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/Kris/Documents/School/Q5/Phone Programming/LockedOut/app/src/main/res/layout/fragment_back_yard.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/Kris/Documents/School/Q5/Phone Programming/LockedOut/app/src/main/res/layout/fragment_front_door.xml" value="0.4" />
+        <entry key="..\:/Users/Kris/Documents/School/Q5/Phone Programming/LockedOut/app/src/main/res/layout/fragment_front_yard.xml" value="0.4244791666666667" />
+        <entry key="..\:/Users/Kris/Documents/School/Q5/Phone Programming/LockedOut/app/src/main/res/layout/fragment_tool_shed.xml" value="0.41041666666666665" />
       </map>
     </option>
   </component>
