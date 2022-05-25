@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">LockedOut</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Locked Out</string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="front_yard">You are standing in your front yard next to your mailbox, when a sudden cold realization creeps over you.
         You forgot to bring your house key with you to school. Your parents don\'t get home from work for hours.
