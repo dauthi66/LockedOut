@@ -2,4 +2,14 @@
     <string name="app_name">LockedOut</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="front_yard">You are standing in your front yard next to your mailbox, when a sudden cold realization creeps over you.
+        You forgot to bring your house key with you to school. Your parents don\'t get home from work for hours.
+        In a sigh of exasperation you decide to start scouring for a way in.</string>
+    <string name="back_yard">Your back yard stretches before you, freshly cut... last week.
+        A sliding back door sits on this side of the house as well as a small window, and a normal sized one to the right of that.
+        A ladder rests against the house next to it. That doesn\'t seem very safe.</string>
+    <string name="tool_shed">You follow the pathway to the side of the house that has your dad\'s tool shed.
+        It\'s about the size of a closet, but has a very sturdy lockable door. Another window rests on this side of the house as well.</string>
+    <string name="front_door">You step onto your porch where a white door stands in front of you accompanied by an old welcome mat.
+        A window to your left gives you a slight glipse of the video game console you wish you were currently playing.</string>
 </resources>

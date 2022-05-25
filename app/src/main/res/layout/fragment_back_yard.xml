@@ -27,7 +27,7 @@
         android:layout_width="244dp"
         android:layout_height="490dp"
         android:fontFamily="@font/sarpanch_bold"
-        android:text="back yard"
+        android:text="@string/back_yard"
         android:textColor="#3CDD1E"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"

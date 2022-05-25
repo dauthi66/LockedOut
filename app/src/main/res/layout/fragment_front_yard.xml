@@ -12,7 +12,7 @@
         android:layout_width="244dp"
         android:layout_height="490dp"
         android:fontFamily="@font/sarpanch_bold"
-        android:text="You are standing in your front yard next to your mailbox, when a sudden cold realization creeps over you. You forgot to bring your house key with you to school. Your parents don't get home from work for hours. In a sigh of exasperation you decide to start scouring for a way in."
+        android:text="@string/front_yard"
         android:textColor="#3CDD1E"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
