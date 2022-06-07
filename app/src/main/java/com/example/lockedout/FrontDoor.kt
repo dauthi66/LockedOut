@@ -63,13 +63,13 @@ class FrontDoor : Fragment() {
          * @return A new instance of fragment FrontDoor.
          */
         // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FrontDoor().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    @JvmStatic
+    fun newInstance(param1: String, param2: String) =
+        FrontDoor().apply {
+            arguments = Bundle().apply {
+                putString(ARG_PARAM1, param1)
+                putString(ARG_PARAM2, param2)
             }
+        }
     }
 }
