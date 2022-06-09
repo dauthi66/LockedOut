@@ -5,10 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Transformations
 import androidx.navigation.findNavController
 import com.example.lockedout.databinding.FragmentBackYardBinding
-import com.example.lockedout.databinding.FragmentFrontDoorBinding
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,6 +43,44 @@ class BackYard : Fragment() {
     ): View? {
         _binding = FragmentBackYardBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        val application = requireNotNull(this.activity).application
+        val dao = GameStateDatabase.getInstance(application).gameStateDao
+//
+//        val gameState = dao.getGameState()
+//
+//        System.out.println("GameState: " + gameState)
+
+        //print out the haveKey value
+
+
+
+
+
+
+
+        //transforms the list of tasks to a list of task name strings
+//        val gameStateString = Transformations.map(gameState) {
+//
+//        }
+
+//        //print out the result of the query to the console
+//        println("Have hammer: $gameStateString")
+//
+//        val haveHammerString = Transformations.map(haveHammer) {
+//                tasks -> formatTasks(tasks)
+//        }
+//
+//        System.out.println("haveHammer: $haveHammer")
+//        //have hammer is not a boolean?
+//        if(haveHammer){
+//            binding.txtTextView.text = "You have the hammer"
+//        }
+//        else{
+//            binding.txtTextView.text = "You do not have the hammer"
+//        }
+
+        //binding.txtTextView.text = haveHammer.toString()
 
         binding.btnToolShed.setOnClickListener {
             view.findNavController().navigate(R.id.action_backYard_to_frontDoor)
