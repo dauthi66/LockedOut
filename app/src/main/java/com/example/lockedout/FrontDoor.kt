@@ -1,17 +1,20 @@
 package com.example.lockedout
 
+import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.room.Room
 import com.example.lockedout.databinding.FragmentFrontDoorBinding
 
 
-// TODO: Rename parameter arguments, choose names that match
+
+
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -21,6 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [FrontDoor.newInstance] factory method to
  * create an instance of this fragment.
  */
+@Suppress("DEPRECATION")
 class FrontDoor : Fragment() {
     //create binding
     private var _binding: FragmentFrontDoorBinding? = null
@@ -53,30 +57,78 @@ class FrontDoor : Fragment() {
             view.findNavController().navigate(R.id.action_frontDoor_to_toolShed)
         }
 
-//        val db = Room.databaseBuilder(
-//            applicationContext,
-//            AppDatabase::class.java, "database-name"
-//        ).build()
-//
-//        val application = requireNotNull(this.activity).application
-//        val dao = GameStateDatabase.getInstance(application).gameStateDao
-//
-//        val userDao = db.userDao()
-//        val users: List<User> = userDao.getAll()
+        //instantiate database
+        val application = requireNotNull(this.activity).application
+        val dao = GameStateDatabase.getInstance(application).gameStateDao
 
-        // Set the lifecycleOwner to the lifecycle of the view
-//        val application = requireNotNull(this.activity).application
-//        // Get the ViewModel
-//        val dao = GameStateDatabase.getInstance(application).gameStateDao
-//        val viewModelFactory = GameStateViewModelFactory(dao)
-//        val viewModel = ViewModelProvider(
-//           this, viewModelFactory).get(GameStateViewModel::class.java)
-//
-//        // print the gameState to the console
-//        viewModel.gameState.value?.let { println(it) }
+        val gameState = GameState(haveKey = true)
+        //add to database if it doesn't exist
+        saveGameState(gameState)
 
+        //Toast.makeText(activity,"working", Toast.LENGTH_LONG).show()
+//        insertGameState()
+//        dao.update(gameState)
+//        dao.updateHaveKey(true)
+            dao.update(gameState)
+
+
+//        var haveKey = dao.haveKey()
+//
+//        binding.btnEnter.setOnClickListener {
+//            var userInput = binding.userInput.text
+//
+//            if (userInput.equals("open door")) {
+//                if (haveKey) {
+//                    binding.txtTextView.text = "You have unlocked the door"
+//                } else {
+//                    binding.txtTextView.text = "With a few knob jiggles, you confirm, the door is indeed locked. Great"
+//                }
+//            }
+//            else {
+//                binding.txtTextView.text = "I'm not sure how that would help"
+//            }
+//
+//            binding.userInput.clearFocus()
+//        }
+
+        binding.txtTextView.setOnClickListener() {
+            if (!binding.txtTextView.text.equals(getString(R.string.front_door))) {
+                binding.txtTextView.text = getString(R.string.front_door)
+            }
+
+        }
         return view
     }
+
+    private fun saveGameState (gameState: GameState) {
+        class SaveGameState : AsyncTask<Void, Void, Void>() {
+            override fun doInBackground(vararg params: Void?): Void? {
+                GameStateDatabase.getInstance(requireNotNull(activity).application)
+                    .gameStateDao.insert(gameState)
+                return null
+            }
+
+            override fun onPostExecute(result: Void?) {
+                super.onPostExecute(result)
+
+                Toast.makeText(activity, "GameState saved", Toast.LENGTH_LONG).show()
+            }
+        }
+        SaveGameState()
+    }
+
+    //NEEDS TO BE OUT OF MAIN BRANCH!
+//    private fun insertGameState() {
+//        val application = requireNotNull(this.activity).application
+//        val dao = GameStateDatabase.getInstance(application).gameStateDao
+//        //change haveKey to true and update database
+//        val gameState = GameState(haveKey = true)
+//////        dao.update(gameState)
+//////        dao.updateHaveKey(true)
+////        dao.insert(gameState)
+//
+//        dao.insert(gameState)
+//    }
 
     companion object {
         /**
@@ -97,7 +149,6 @@ class FrontDoor : Fragment() {
             }
         }
     }
-
 //    override fun onDestroyView() {
 //        super.onDestroyView()
 //        _binding = null

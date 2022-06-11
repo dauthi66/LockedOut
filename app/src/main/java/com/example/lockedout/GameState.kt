@@ -9,8 +9,8 @@ import androidx.room.PrimaryKey
 data class GameState(
     @PrimaryKey(autoGenerate = true)
     var gameId: Long = 0L,
-    @ColumnInfo(name = "action_list")
-    var actionList: List<String> = listOf("take", "open", "use"),
+//    @ColumnInfo(name = "action_list")
+//    var actionList: String = "take open use",
     @ColumnInfo(name = "have_key")
     var haveKey: Boolean = false,
     @ColumnInfo(name = "have_hammer")

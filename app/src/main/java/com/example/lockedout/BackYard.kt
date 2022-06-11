@@ -46,12 +46,19 @@ class BackYard : Fragment() {
 
         val application = requireNotNull(this.activity).application
         val dao = GameStateDatabase.getInstance(application).gameStateDao
-//
-//        val gameState = dao.getGameState()
-//
-//        System.out.println("GameState: " + gameState)
 
-        //print out the haveKey value
+//        var haveHammer = dao.getHaveHammer()
+//
+//        if(haveHammer){
+//            binding.txtTextView.text = "You have the hammer"
+//        }
+//        else{
+//            binding.txtTextView.text = "You do not have the hammer"
+//        }
+
+        //binding.txtTextView.text = haveHammer
+        //System.out.println("GameState: " + haveHammer)
+
 
 
 

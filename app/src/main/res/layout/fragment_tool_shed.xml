@@ -34,6 +34,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:imeOptions="actionDone"
         app:layout_constraintVertical_bias="0.269" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -63,8 +64,7 @@
         android:layout_height="48dp"
         android:ems="10"
         android:gravity="start|top"
-        android:inputType="textMultiLine"
-        android:text="Open Mailbox"
+        android:inputType="text"
         android:textColor="#3CDD1E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

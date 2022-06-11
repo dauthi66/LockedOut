@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 //change version number to change database schema
-@Database(entities = [GameState::class], version = 7, exportSchema = false)
+@Database(entities = [GameState::class], version = 1, exportSchema = false)
 abstract class GameStateDatabase : RoomDatabase() {
     abstract val gameStateDao: GameStateDao
     companion object {
