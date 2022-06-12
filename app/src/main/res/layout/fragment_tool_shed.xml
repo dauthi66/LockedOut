@@ -58,17 +58,27 @@
         app:layout_constraintGuide_begin="336dp" />
 
     <EditText
-        android:id="@+id/userInput"
+        android:id="@+id/user_input"
         android:layout_width="226dp"
         android:layout_height="48dp"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:text="Open Mailbox"
         android:textColor="#3CDD1E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <Button
+        android:id="@+id/btn_enter"
+        android:layout_width="90dp"
+        android:layout_height="48dp"
+        android:backgroundTint="#20AF06"
+        android:text="Enter"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

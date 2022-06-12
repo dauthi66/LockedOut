@@ -55,7 +55,7 @@
         app:layout_constraintGuide_begin="336dp" />
 
     <EditText
-        android:id="@+id/userInput"
+        android:id="@+id/user_input"
         android:layout_width="226dp"
         android:layout_height="48dp"
         android:ems="10"

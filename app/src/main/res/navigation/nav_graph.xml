@@ -11,6 +11,18 @@
         <action
             android:id="@+id/action_frontYard_to_frontDoor"
             app:destination="@id/frontDoor" />
+        <argument
+            android:name="haveKey"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="haveHammer"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="haveLadder"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/frontDoor"
@@ -22,6 +34,18 @@
         <action
             android:id="@+id/action_frontDoor_to_toolShed"
             app:destination="@id/toolShed" />
+        <argument
+            android:name="haveKey"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="haveHammer"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="haveLadder"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/toolShed"
@@ -30,6 +54,18 @@
         <action
             android:id="@+id/action_toolShed_to_frontDoor"
             app:destination="@id/frontDoor" />
+        <argument
+            android:name="haveKey"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="haveHammer"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="haveLadder"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/backYard"
@@ -38,5 +74,17 @@
         <action
             android:id="@+id/action_backYard_to_frontDoor"
             app:destination="@id/frontDoor" />
+        <argument
+            android:name="haveKey"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="haveHammer"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="haveLadder"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>

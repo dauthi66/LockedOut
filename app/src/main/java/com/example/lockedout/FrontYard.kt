@@ -40,11 +40,17 @@ class FrontYard : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         _binding = FragmentFrontYardBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        var haveKey = false
+        var haveHammer = false
+        var haveLadder = false
+
+        var action = FrontYardDirections.actionFrontYardToFrontDoor(haveKey, haveHammer, haveLadder)
         binding.btnFrontYardToDoor.setOnClickListener {
-            view.findNavController().navigate(R.id.action_frontYard_to_frontDoor)
+            view.findNavController().navigate(action)
         }
         return view
     }

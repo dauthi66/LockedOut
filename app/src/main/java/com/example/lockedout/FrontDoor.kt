@@ -5,9 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
+import android.widget.Toast
 import androidx.navigation.findNavController
-import androidx.room.Room
 import com.example.lockedout.databinding.FragmentFrontDoorBinding
 
 
@@ -38,7 +37,6 @@ class FrontDoor : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -46,34 +44,51 @@ class FrontDoor : Fragment() {
         _binding = FragmentFrontDoorBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        //check what items the player has
+        var haveKey = FrontDoorArgs.fromBundle(requireArguments()).haveKey
+        var haveHammer = FrontDoorArgs.fromBundle(requireArguments()).haveHammer
+        var haveLadder = FrontDoorArgs.fromBundle(requireArguments()).haveLadder
+
+        Toast.makeText(context, (haveKey.toString() + haveHammer.toString() + haveLadder.toString())
+            , Toast.LENGTH_LONG).show()
+
+        //send the message to action_frontDoor_to_backYard using findNavController
+        var toBackYard = FrontDoorDirections.actionFrontDoorToBackYard(haveKey, haveHammer, haveLadder)
         binding.btnFrontDoorToYard.setOnClickListener {
-            view.findNavController().navigate(R.id.action_frontDoor_to_backYard)
+            view.findNavController().navigate(toBackYard)
         }
+
+        var toToolShed = FrontDoorDirections.actionFrontDoorToToolShed(haveKey, haveHammer, haveLadder)
         binding.btnFrontDoorToToolShed.setOnClickListener {
-            view.findNavController().navigate(R.id.action_frontDoor_to_toolShed)
+            view.findNavController().navigate(toToolShed)
         }
 
-//        val db = Room.databaseBuilder(
-//            applicationContext,
-//            AppDatabase::class.java, "database-name"
-//        ).build()
-//
-//        val application = requireNotNull(this.activity).application
-//        val dao = GameStateDatabase.getInstance(application).gameStateDao
-//
-//        val userDao = db.userDao()
-//        val users: List<User> = userDao.getAll()
+        binding.btnEnter.setOnClickListener {
+            var userInput = binding.userInput.text.toString()
 
-        // Set the lifecycleOwner to the lifecycle of the view
-//        val application = requireNotNull(this.activity).application
-//        // Get the ViewModel
-//        val dao = GameStateDatabase.getInstance(application).gameStateDao
-//        val viewModelFactory = GameStateViewModelFactory(dao)
-//        val viewModel = ViewModelProvider(
-//           this, viewModelFactory).get(GameStateViewModel::class.java)
-//
-//        // print the gameState to the console
-//        viewModel.gameState.value?.let { println(it) }
+            if (userInput.equals("open door", true)) {
+                if (haveKey) {
+                    binding.txtTextView.text = "With a resounding \"click\" you unlock and open the door. With a satisfying sigh, you resign yourself to a day of gaming.\n You Win!"
+                } else {
+                    binding.txtTextView.text = "With a few knob jiggles you confirm that the door is indeed locked. \n Great."
+                }
+            }
+            else if ( userInput.equals("open mat", true)) {
+                if (haveKey) {
+                    binding.txtTextView.text = "You already found the key there."
+                }
+                else {
+                    binding.txtTextView.text = "Bingo! You lift the door mat to reveal a key, mom always leaves a spare key here! \n You happily take the key."
+                    //save it key in the bundles
+                    haveKey = true
+                    toBackYard = FrontDoorDirections.actionFrontDoorToBackYard(haveKey, haveHammer, haveLadder)
+                    toToolShed = FrontDoorDirections.actionFrontDoorToToolShed(haveKey, haveHammer, haveLadder)
+                }
+            }
+            else {
+                binding.txtTextView.text = getString(R.string.unknown_text_response)
+            }
+        }
 
         return view
     }

@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Transformations
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.lockedout.databinding.FragmentBackYardBinding
 
@@ -44,47 +44,50 @@ class BackYard : Fragment() {
         _binding = FragmentBackYardBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val application = requireNotNull(this.activity).application
-        val dao = GameStateDatabase.getInstance(application).gameStateDao
-//
-//        val gameState = dao.getGameState()
-//
-//        System.out.println("GameState: " + gameState)
+        //check what items the player has
+        var haveKey = BackYardArgs.fromBundle(requireArguments()).haveKey
+        var haveHammer = BackYardArgs.fromBundle(requireArguments()).haveHammer
+        var haveLadder = BackYardArgs.fromBundle(requireArguments()).haveLadder
 
-        //print out the haveKey value
+        var toFrontDoor = BackYardDirections.actionBackYardToFrontDoor(haveKey, haveHammer, haveLadder)
+        Toast.makeText(context, (haveKey.toString() + haveHammer.toString() + haveLadder.toString())
+            , Toast.LENGTH_LONG).show()
 
-
-
-
-
-
-
-        //transforms the list of tasks to a list of task name strings
-//        val gameStateString = Transformations.map(gameState) {
-//
-//        }
-
-//        //print out the result of the query to the console
-//        println("Have hammer: $gameStateString")
-//
-//        val haveHammerString = Transformations.map(haveHammer) {
-//                tasks -> formatTasks(tasks)
-//        }
-//
-//        System.out.println("haveHammer: $haveHammer")
-//        //have hammer is not a boolean?
-//        if(haveHammer){
-//            binding.txtTextView.text = "You have the hammer"
-//        }
-//        else{
-//            binding.txtTextView.text = "You do not have the hammer"
-//        }
-
-        //binding.txtTextView.text = haveHammer.toString()
-
+        //navigation for button
         binding.btnToolShed.setOnClickListener {
-            view.findNavController().navigate(R.id.action_backYard_to_frontDoor)
+            view.findNavController().navigate(toFrontDoor)
         }
+
+        binding.btnEnter.setOnClickListener {
+            var userInput = binding.userInput.text.toString()
+
+            if (userInput.equals("take ladder", true)) {
+                if (haveLadder) {
+                    binding.txtTextView.text = "You already took the ladder... and you look suspicious carrying it everywhere too"
+                } else {
+                    binding.txtTextView.text = "You awkwardly grab the ladder with both hands, and haul it along side you"
+                    //save it hammer in the bundles
+                    haveLadder = true
+                    toFrontDoor = BackYardDirections.actionBackYardToFrontDoor(haveKey, haveHammer, haveLadder)
+                }
+            }
+            else if ( userInput.equals("use hammer window", true)) {
+                if (haveHammer) {
+                    binding.txtTextView.text = "You pull out the hammer and cringe as you shatter it with the hammer." +
+                            "Unfortunately a neighbor also notices, yells, and pulls out his cell to call the cops." +
+                            "This probably wasn't a great idea... \n You Lose!"
+                }
+            }
+            else if ( userInput.equals("use hammer door", true)) {
+                if (haveHammer) {
+                    binding.txtTextView.text = "You might as well break a smaller window to mitigate some of the collateral damage at least"
+                }
+            }
+            else {
+                binding.txtTextView.text = getString(R.string.unknown_text_response)
+            }
+        }
+
         return view
     }
 

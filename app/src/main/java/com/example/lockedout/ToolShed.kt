@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.findNavController
 import com.example.lockedout.databinding.FragmentToolShedBinding
 
@@ -44,29 +45,64 @@ class ToolShed : Fragment() {
         _binding = FragmentToolShedBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        //check what items the player has
+        var haveKey = ToolShedArgs.fromBundle(requireArguments()).haveKey
+        var haveHammer = ToolShedArgs.fromBundle(requireArguments()).haveHammer
+        var haveLadder = ToolShedArgs.fromBundle(requireArguments()).haveLadder
+
+        Toast.makeText(context, (haveKey.toString() + haveHammer.toString() + haveLadder.toString())
+            , Toast.LENGTH_LONG).show()
+
+        var toFrontDoor = ToolShedDirections.actionToolShedToFrontDoor(haveKey, haveHammer, haveLadder)
         binding.btnShedToFrontDoor.setOnClickListener {
-            view.findNavController().navigate(R.id.action_toolShed_to_frontDoor)
+            view.findNavController().navigate(toFrontDoor)
         }
+
+        binding.btnEnter.setOnClickListener {
+            var userInput = binding.userInput.text.toString()
+
+            if (userInput.equals("open shed", true)) {
+                if (haveHammer) {
+                    binding.txtTextView.text = "You already grabbed a hammer, that should be good enough."
+                } else {
+                    binding.txtTextView.text = "It slides open easily, luckily it isn't locked. Dad must have forgot to lock it. \n You take a hammer that looks like it could be useful"
+                    //save it hammer in the bundles
+                    haveHammer = true
+                    toFrontDoor = ToolShedDirections.actionToolShedToFrontDoor(haveKey, haveHammer, haveLadder)
+                }
+            }
+            else if ( userInput.equals("use ladder", true)) {
+                if (haveLadder) {
+                    binding.txtTextView.text = "You slide the old ladder up to the side of the house. " +
+                            "Despite securing it, it still seems to be wobbly. You head up it as it creaks and moans, wobbling under your weight." +
+                            "You suddenly lose balance, and end up on your back on the ground. Your arm hurts bad, it could be broken, what were you thinking? \n You Lose!"
+                }
+            }
+            else {
+                binding.txtTextView.text = getString(R.string.unknown_text_response)
+            }
+        }
+
         return view
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ToolShed.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ToolShed().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment ToolShed.
+     */
+    // TODO: Rename and change types and number of parameters
+    @JvmStatic
+    fun newInstance(param1: String, param2: String) =
+        ToolShed().apply {
+            arguments = Bundle().apply {
+                putString(ARG_PARAM1, param1)
+                putString(ARG_PARAM2, param2)
             }
+        }
     }
 }
