@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.example.lockedout.databinding.FragmentToolShedBinding
 
@@ -76,6 +77,7 @@ class ToolShed : Fragment() {
                     binding.txtTextView.text = "You slide the old ladder up to the side of the house. " +
                             "Despite securing it, it still seems to be wobbly. You head up it as it creaks and moans, wobbling under your weight." +
                             "You suddenly lose balance, and end up on your back on the ground. Your arm hurts bad, it could be broken, what were you thinking? \n You Lose!"
+                    endGame();
                 }
             }
             else {
@@ -84,6 +86,9 @@ class ToolShed : Fragment() {
         }
 
         return view
+    }
+
+    private fun endGame() {
     }
 
     companion object {
