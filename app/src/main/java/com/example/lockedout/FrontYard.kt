@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.example.lockedout.databinding.FragmentFrontYardBinding
 
@@ -44,6 +46,8 @@ class FrontYard : Fragment() {
         _binding = FragmentFrontYardBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        setupTutorialButton()
+
         var haveKey = false
         var haveHammer = false
         var haveLadder = false
@@ -53,6 +57,19 @@ class FrontYard : Fragment() {
             view.findNavController().navigate(action)
         }
         return view
+    }
+
+    private fun setupTutorialButton() {
+        binding.btnTutorial.setOnClickListener {
+            if (!binding.txtTextView.text.equals(getString(R.string.tutorial))){
+                binding.txtTextView.text = getString(R.string.tutorial)
+                binding.btnTutorial.text = getString(R.string.back)
+            }
+            else{
+                binding.txtTextView.text = getString(R.string.front_yard)
+                binding.btnTutorial.text = getString(R.string.tutorial_button)
+            }
+        }
     }
 
     companion object {

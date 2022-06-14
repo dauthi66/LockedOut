@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.example.lockedout.databinding.FragmentFrontDoorBinding
 
@@ -44,13 +46,15 @@ class FrontDoor : Fragment() {
         _binding = FragmentFrontDoorBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        setUpTryAgainButton(view)
+
         //check what items the player has
         var haveKey = FrontDoorArgs.fromBundle(requireArguments()).haveKey
         var haveHammer = FrontDoorArgs.fromBundle(requireArguments()).haveHammer
         var haveLadder = FrontDoorArgs.fromBundle(requireArguments()).haveLadder
 
-        Toast.makeText(context, (haveKey.toString() + haveHammer.toString() + haveLadder.toString())
-            , Toast.LENGTH_LONG).show()
+        //display in a toast all the items the player has
+        itemDisplay(haveKey, haveHammer, haveLadder)
 
         //send the message to action_frontDoor_to_backYard using findNavController
         var toBackYard = FrontDoorDirections.actionFrontDoorToBackYard(haveKey, haveHammer, haveLadder)
@@ -68,7 +72,9 @@ class FrontDoor : Fragment() {
 
             if (userInput.equals("open door", true)) {
                 if (haveKey) {
-                    binding.txtTextView.text = "With a resounding \"click\" you unlock and open the door. With a satisfying sigh, you resign yourself to a day of gaming.\n You Win!"
+                    binding.txtTextView.text = "With a resounding \"click\" you unlock and open the door. " +
+                            "With a satisfying sigh, you resign yourself to a day of gaming.\n\n You Win!"
+                    endGame()
                 } else {
                     binding.txtTextView.text = "With a few knob jiggles you confirm that the door is indeed locked. \n Great."
                 }
@@ -78,7 +84,7 @@ class FrontDoor : Fragment() {
                     binding.txtTextView.text = "You already found the key there."
                 }
                 else {
-                    binding.txtTextView.text = "Bingo! You lift the door mat to reveal a key, mom always leaves a spare key here! \n You happily take the key."
+                    binding.txtTextView.text = "Bingo! You lift the door mat to reveal a key, mom always leaves a spare key here! \n\n You happily take the key."
                     //save it key in the bundles
                     haveKey = true
                     toBackYard = FrontDoorDirections.actionFrontDoorToBackYard(haveKey, haveHammer, haveLadder)
@@ -91,6 +97,49 @@ class FrontDoor : Fragment() {
         }
 
         return view
+    }
+
+    private fun itemDisplay(
+        haveKey: Boolean,
+        haveHammer: Boolean,
+        haveLadder: Boolean
+    ) {
+        var items = mutableListOf<String>()
+        if (haveKey) {
+            items.add("key")
+        }
+        if (haveHammer) {
+            items.add("hammer")
+        }
+        if (haveLadder) {
+            items.add("ladder")
+        }
+        //display list in a toast if the player has any items, add and between each item add a comma
+        if (items.size > 0) {
+            Toast.makeText(
+                context,
+                "You have: a " + items.joinToString(", and a "),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun setUpTryAgainButton(view: ConstraintLayout) {
+        binding.btnTryAgain.setOnClickListener {
+            binding.btnTryAgain.isVisible = true
+            binding.btnEnter.isVisible = false
+            binding.btnFrontDoorToYard.isVisible = false
+            binding.btnFrontDoorToToolShed.isVisible = false
+            view.findNavController().navigate(R.id.action_frontDoor_to_frontYard)
+        }
+    }
+
+    //give visual that game is over
+    private fun endGame() {
+        binding.btnTryAgain.isVisible = true
+        binding.btnEnter.isVisible = false
+        binding.btnFrontDoorToYard.isVisible = false
+        binding.btnFrontDoorToToolShed.isVisible = false
     }
 
     companion object {

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.example.lockedout.databinding.FragmentBackYardBinding
 
@@ -44,17 +46,21 @@ class BackYard : Fragment() {
         _binding = FragmentBackYardBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        setUpTryAgainButton(view)
+
         //check what items the player has
         var haveKey = BackYardArgs.fromBundle(requireArguments()).haveKey
         var haveHammer = BackYardArgs.fromBundle(requireArguments()).haveHammer
         var haveLadder = BackYardArgs.fromBundle(requireArguments()).haveLadder
 
+        //save those items for the next fragment
         var toFrontDoor = BackYardDirections.actionBackYardToFrontDoor(haveKey, haveHammer, haveLadder)
-        Toast.makeText(context, (haveKey.toString() + haveHammer.toString() + haveLadder.toString())
-            , Toast.LENGTH_LONG).show()
+
+        //display in a toast all the items the player has
+        itemDisplay(haveKey, haveHammer, haveLadder)
 
         //navigation for button
-        binding.btnToolShed.setOnClickListener {
+        binding.btnBackyardToFrontDoor.setOnClickListener {
             view.findNavController().navigate(toFrontDoor)
         }
 
@@ -66,7 +72,7 @@ class BackYard : Fragment() {
                     binding.txtTextView.text = "You already took the ladder... and you look suspicious carrying it everywhere too"
                 } else {
                     binding.txtTextView.text = "You awkwardly grab the ladder with both hands, and haul it along side you"
-                    //save it hammer in the bundles
+                    //save hammer in the bundles
                     haveLadder = true
                     toFrontDoor = BackYardDirections.actionBackYardToFrontDoor(haveKey, haveHammer, haveLadder)
                 }
@@ -76,11 +82,13 @@ class BackYard : Fragment() {
                     binding.txtTextView.text = "You pull out the hammer and cringe as you shatter it with the hammer." +
                             "Unfortunately a neighbor also notices, yells, and pulls out his cell to call the cops." +
                             "This probably wasn't a great idea... \n You Lose!"
+                    endGame()
+
                 }
             }
             else if ( userInput.equals("use hammer door", true)) {
                 if (haveHammer) {
-                    binding.txtTextView.text = "You might as well break a smaller window to mitigate some of the collateral damage at least"
+                    binding.txtTextView.text = getString(R.string.use_hammer_door_result)
                 }
             }
             else {
@@ -89,6 +97,47 @@ class BackYard : Fragment() {
         }
 
         return view
+    }
+
+    private fun itemDisplay(
+        haveKey: Boolean,
+        haveHammer: Boolean,
+        haveLadder: Boolean
+    ) {
+        var items = mutableListOf<String>()
+        if (haveKey) {
+            items.add("key")
+        }
+        if (haveHammer) {
+            items.add("hammer")
+        }
+        if (haveLadder) {
+            items.add("ladder")
+        }
+        //display list in a toast if the player has any items, add and between each item add a comma
+        if (items.size > 0) {
+            Toast.makeText(
+                context,
+                "You have: a " + items.joinToString(", and a "),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun setUpTryAgainButton(view: ConstraintLayout) {
+        binding.btnTryAgain.setOnClickListener {
+            binding.btnTryAgain.isVisible = true
+            binding.btnEnter.isVisible = false
+            binding.btnBackyardToFrontDoor.isVisible = false
+            view.findNavController().navigate(R.id.action_backYard_to_frontYard)
+        }
+    }
+
+    //give visual that game is over
+    private fun endGame() {
+        binding.btnTryAgain.isVisible = true
+        binding.btnEnter.isVisible = false
+        binding.btnBackyardToFrontDoor.isVisible = false
     }
 
     companion object {

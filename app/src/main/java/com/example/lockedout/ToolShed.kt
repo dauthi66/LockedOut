@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import com.example.lockedout.databinding.FragmentToolShedBinding
@@ -46,13 +47,15 @@ class ToolShed : Fragment() {
         _binding = FragmentToolShedBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        setUpTryAgainButton(view)
+
         //check what items the player has
         var haveKey = ToolShedArgs.fromBundle(requireArguments()).haveKey
         var haveHammer = ToolShedArgs.fromBundle(requireArguments()).haveHammer
         var haveLadder = ToolShedArgs.fromBundle(requireArguments()).haveLadder
 
-        Toast.makeText(context, (haveKey.toString() + haveHammer.toString() + haveLadder.toString())
-            , Toast.LENGTH_LONG).show()
+        //display in a toast all the items the player has
+        itemDisplay(haveKey, haveHammer, haveLadder)
 
         var toFrontDoor = ToolShedDirections.actionToolShedToFrontDoor(haveKey, haveHammer, haveLadder)
         binding.btnShedToFrontDoor.setOnClickListener {
@@ -60,24 +63,24 @@ class ToolShed : Fragment() {
         }
 
         binding.btnEnter.setOnClickListener {
-            var userInput = binding.userInput.text.toString()
+            val userInput = binding.userInput.text.toString()
 
             if (userInput.equals("open shed", true)) {
                 if (haveHammer) {
                     binding.txtTextView.text = "You already grabbed a hammer, that should be good enough."
                 } else {
-                    binding.txtTextView.text = "It slides open easily, luckily it isn't locked. Dad must have forgot to lock it. \n You take a hammer that looks like it could be useful"
+                    binding.txtTextView.text = "It slides open easily, luckily it isn't locked. Dad must have forgot to lock it. \n\n You take a hammer that looks like it could be useful"
                     //save it hammer in the bundles
                     haveHammer = true
                     toFrontDoor = ToolShedDirections.actionToolShedToFrontDoor(haveKey, haveHammer, haveLadder)
                 }
             }
-            else if ( userInput.equals("use ladder", true)) {
+            else if ( userInput.equals("use ladder window", true)) {
                 if (haveLadder) {
                     binding.txtTextView.text = "You slide the old ladder up to the side of the house. " +
                             "Despite securing it, it still seems to be wobbly. You head up it as it creaks and moans, wobbling under your weight." +
-                            "You suddenly lose balance, and end up on your back on the ground. Your arm hurts bad, it could be broken, what were you thinking? \n You Lose!"
-                    endGame();
+                            "You suddenly lose balance, and end up on your back on the ground. Your arm hurts bad, it could be broken, what were you thinking? \n\n You Lose!"
+                    endGame()
                 }
             }
             else {
@@ -88,7 +91,45 @@ class ToolShed : Fragment() {
         return view
     }
 
+    private fun itemDisplay(
+        haveKey: Boolean,
+        haveHammer: Boolean,
+        haveLadder: Boolean
+    ) {
+        var items = mutableListOf<String>()
+        if (haveKey) {
+            items.add("key")
+        }
+        if (haveHammer) {
+            items.add("hammer")
+        }
+        if (haveLadder) {
+            items.add("ladder")
+        }
+        //display list in a toast if the player has any items, add and between each item add a comma
+        if (items.size > 0) {
+            Toast.makeText(
+                context,
+                "You have: a " + items.joinToString(", and a "),
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun setUpTryAgainButton(view: ConstraintLayout) {
+        binding.btnTryAgain.setOnClickListener {
+            binding.btnTryAgain.isVisible = true
+            binding.btnEnter.isVisible = false
+            binding.btnShedToFrontDoor.isVisible = false
+            view.findNavController().navigate(R.id.action_toolShed_to_frontYard)
+        }
+    }
+
+    //give visual that game is over
     private fun endGame() {
+        binding.btnTryAgain.isVisible = true
+        binding.btnEnter.isVisible = false
+        binding.btnShedToFrontDoor.isVisible = false
     }
 
     companion object {
