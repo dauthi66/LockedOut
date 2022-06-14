@@ -63,7 +63,7 @@ class ToolShed : Fragment() {
         }
 
         binding.btnEnter.setOnClickListener {
-            val userInput = binding.userInput.text.toString()
+            val userInput = binding.userInput.text.toString().trim()
 
             if (userInput.equals("open shed", true)) {
                 if (haveHammer) {

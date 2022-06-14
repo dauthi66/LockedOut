@@ -77,14 +77,15 @@
         android:id="@+id/user_input"
         android:layout_width="226dp"
         android:layout_height="48dp"
+        android:backgroundTint="#3CDD1E"
         android:ems="10"
         android:gravity="start|top"
+        android:imeOptions="actionDone"
         android:inputType="text"
         android:textColor="#3CDD1E"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:imeOptions="actionDone"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <Button

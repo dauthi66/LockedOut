@@ -65,7 +65,7 @@ class BackYard : Fragment() {
         }
 
         binding.btnEnter.setOnClickListener {
-            var userInput = binding.userInput.text.toString()
+            var userInput = binding.userInput.text.toString().trim()
 
             if (userInput.equals("take ladder", true)) {
                 if (haveLadder) {

@@ -6,17 +6,16 @@
         cold realization creeps over you. You forgot to bring your house key with you to school.
         Your parents don\'t get home from work for hours.In a sigh of exasperation you decide to
         start scouring for a way in.</string>
-    <string name="back_yard">Your back yard stretches before you, freshly cut... last week.
-        A sliding back door sits on this side of the house as well as a small window,
-        and a normal sized one to the right of that. A ladder rests against the house next to it.
-        Your dad has a pile of junk he needs to get to the dump stacked against the fence.
-        The only thing of note is an old ladder.</string>
+    <string name="back_yard">Your back yard stretches before you, freshly cut… last week.
+        A sliding back door sits on this side of the house as well as a small window. A ladder rests
+        against the house next to it. Your dad has a pile of junk he needs to get to the dump stacked
+        against the fence. The only thing of note is an old ladder.</string>
     <string name="tool_shed">You follow the pathway to the side of the house that has your dad\'s tool shed.
-        It\'s about the size of a closet, but has a very sturdy lockable door. Across from it is your
-        house with your window one story up from you, is it slightly open? You aren\'t sure if you
+        It\'s small, about the size of a closet. Across from it is your house with your window one
+        story up from you, is it slightly open? You aren\'t sure if you
         remembered to close it last night.</string>
     <string name="front_door">You step onto your porch where a white door stands in front of you
-        accompanied by an old welcome mat.A window to your left gives you a slight glimpse of the
+        accompanied by an old welcome mat. A window to your left gives you a slight glimpse of the
         video game console you wish you were currently playing.</string>
     <string name="unknown_text_response">I\'m not sure how that would help</string>
     <string name="tutorial">Type commands in the text box below to obtain items.\n\n
@@ -29,5 +28,6 @@
         i.e. use mail mailbox</string>
     <string name="back">Back</string>
     <string name="tutorial_button">Tutorial</string>
-    <string name="use_hammer_door_result">Maybe not the door... You should break a smaller window instead to mitigate some of the collateral damage at least</string>
+    <string name="use_hammer_door_result">Maybe not the door... You should break a smaller window
+        instead to mitigate some of the collateral damage at least</string>
 </resources>

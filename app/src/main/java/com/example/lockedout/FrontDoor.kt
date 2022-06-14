@@ -68,18 +68,18 @@ class FrontDoor : Fragment() {
         }
 
         binding.btnEnter.setOnClickListener {
-            var userInput = binding.userInput.text.toString()
+            var userInput = binding.userInput.text.toString().trim()
 
-            if (userInput.equals("open door", true)) {
+            if (userInput.equals("open door", true) || userInput.equals("use key door", true)) {
                 if (haveKey) {
-                    binding.txtTextView.text = "With a resounding \"click\" you unlock and open the door. " +
-                            "With a satisfying sigh, you resign yourself to a day of gaming.\n\n You Win!"
+                    binding.txtTextView.text = "With a resounding \"click\" you unlock and open the door and " +
+                            " a satisfying sigh, you resign yourself to a day of gaming.\n\n You Win!"
                     endGame()
                 } else {
                     binding.txtTextView.text = "With a few knob jiggles you confirm that the door is indeed locked. \n Great."
                 }
             }
-            else if ( userInput.equals("open mat", true)) {
+            else if ( userInput.equals("open mat", true) || userInput.equals("open welcome mat", true)) {
                 if (haveKey) {
                     binding.txtTextView.text = "You already found the key there."
                 }
