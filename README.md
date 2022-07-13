@@ -1,4 +1,4 @@
-# LockedOut - *Design Plans*
+# LockedOut 
 A retro text-based adventure game
 
 ## Evironment
